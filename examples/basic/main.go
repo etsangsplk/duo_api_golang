@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/duosecurity/duo_api_golang"
 	"github.com/duosecurity/duo_api_golang/authapi"
@@ -29,5 +30,16 @@ func buildAuthApi(url string, proxy func(*http.Request) (*url.URL, error)) *auth
 }
 
 func main() {
+	iKey, _ := os.LookupEnv("iKey")
+	sKey, _ := os.LookupEnv("sKey")
+	apiHost, _ := os.LookupEnv("authMgrUrl")
+	factor, _ := os.LookupEnv("factor")
+	duoapiClient := duo_api.NewDuoApi(ikey,
+		skey,
+		host,
+		userAgent,
+		duoapi.SetTimeout(1*time.Second),
+		duoapi.SetInsecure(),
+		duoapi.SetProxy(proxy)))
 
 }
