@@ -10,7 +10,7 @@ import (
 	"time"
 
 	duoapi "github.com/duosecurity/duo_api_golang"
-	//"github.com/duosecurity/duo_api_golang/authapi"
+	"github.com/duosecurity/duo_api_golang/authapi"
 )
 
 // Example basic. This shows how to use Duo Security Go API
@@ -21,7 +21,7 @@ func main() {
 	apiHost, _ := os.LookupEnv("authMgrUrl")
 	//factor, _ := os.LookupEnv("factor")
 	userAgent := "Go Test Agent"
-	 duoapi.NewDuoApi(
+	duoApiClient := duoapi.NewDuoApi(
 		iKey,
 		sKey,
 		apiHost,
@@ -29,6 +29,6 @@ func main() {
 		duoapi.SetTimeout(1*time.Second),
 		duoapi.SetInsecure())
 
-
+	authapi.NewAuthApi(*duoApiClient)
 
 }
