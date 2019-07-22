@@ -1,6 +1,7 @@
 package duoapi
 
 import (
+	"fmt"
 	"crypto/hmac"
 	"crypto/sha1"
 	"crypto/tls"
@@ -59,6 +60,7 @@ func sign(ikey string,
 	uri string,
 	date string,
 	params url.Values) string {
+	fmt.Println("adafdfsgagddssdge")
 	canon := canonicalize(method, host, uri, params, date)
 	mac := hmac.New(sha1.New, []byte(skey))
 	mac.Write([]byte(canon))
@@ -233,6 +235,7 @@ func (duoapi *DuoApi) SignedCall(method string,
 	options ...DuoApiOption) (*http.Response, []byte, error) {
 
 	now := time.Now().UTC().Format(time.RFC1123Z)
+	fmt.Println("BBBBBBBBBBBBB")
 	auth_sig := sign(duoapi.ikey, duoapi.skey, method, duoapi.host, uri, now, params)
 
 	url := url.URL{
@@ -240,6 +243,9 @@ func (duoapi *DuoApi) SignedCall(method string,
 		Host:   duoapi.host,
 		Path:   uri,
 	}
+
+	fmt.Printf("CCCCC%v", url)
+
 	method = strings.ToUpper(method)
 
 	if method == "GET" {
@@ -272,9 +278,13 @@ func (duoapi *DuoApi) makeRetryableHttpCall(
 		client = duoapi.apiClient
 	}
 
+	fmt.Println("HHHHHHHHHH")
+	fmt.Printf("urrrrllllllllll: %#v \n", url.String())
+
 	backoffMs := initialBackoffMS
 	for {
 		request, err := http.NewRequest(method, url.String(), nil)
+		fmt.Printf("REQ: %#v, Err %#v\n", request, err)
 		if err != nil {
 			return nil, nil, err
 		}
