@@ -26,13 +26,23 @@ func getKeyOrDefault(key string, defVal string) (string, bool) {
 
 func main() {
 	// Must be partner API on application list in duo secuiryt for application to protect
+
+	//Protect API application
+	// Use a set of new .. all these keys are thrown out.
 	iKey, _ := getKeyOrDefault("iKey", "DIM7ZWB0986Y84TG1DI9")
 	sKey, _ := getKeyOrDefault("sKey", "b0rEroFKOZXrrbtwUs5WDtvZD1rnusi8EuWfxCHN")
 	apiHost, _ := getKeyOrDefault("duoHost", "api-fb2615f6.duosecurity.com")
+
+	// Just SPlunk App
+	// Use a set of new .. all these keys are thrown out.
+	iKey, _ = getKeyOrDefault("iKey", "DIOONI3FJ3OB270ALRN3")
+	sKey, _ = getKeyOrDefault("sKey", "w0qfvYC00480nXcvH3CrQuCD9zaPws8pBiQRXwSM")
+	apiHost, _ = getKeyOrDefault("duoHost", "api-fb2615f6.duosecurity.com")
+
 	factor := "passcode"
 	//uID := "4213-5772-06"
 	uName := "sc_admin_admin"
-	passCode := "043415"
+	passCode := "257044"
 	//apiUrl, _ := getKeyOrDefault("authMgrUrl", "/auth/v2/auth")
 	//apiServer, err := url.Parse(apiHost+apiUrl)
 
@@ -67,11 +77,9 @@ func main() {
 
 	fmt.Printf("auth %p response*******: %#v \n", resA, resA)
 
-	fmt.Printf("authResponse Stat Result: %#v \n Code %#v \n Message %#v \n Message_Detail %#v\n", resA.StatResult,
-		*resA.Code,
-		*resA.Message,
-		*resA.Message_Detail,
-	)
+	fmt.Printf("authResponse Stat Result: %#v \n Code %#v \n Message %#v \n Message_Detail %#v\n", resA.StatResult)//*resA.Code, very inconsistent
+	//*resA.Message, very inconsistent
+	//*resA.Message_Detail,
 
 	fmt.Printf("authResponse*******: %#v \n", resA.Response)
 

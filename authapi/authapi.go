@@ -1,7 +1,6 @@
 package authapi
 
 import (
-	"fmt"
 	"encoding/json"
 	"net/url"
 	"strconv"
@@ -41,7 +40,6 @@ type PingResult struct {
 // This is an unsigned Duo Rest API call which returns the Duo system's time.
 // Use this method to determine whether your system time is in sync with Duo's.
 func (api *AuthApi) Ping() (*PingResult, error) {
-	fmt.Println("GGGGGGGGGGGGGG")
 	_, body, err := api.Call("GET", "/auth/v2/ping", nil, duoapi.UseTimeout)
 	if err != nil {
 		return nil, err
@@ -342,7 +340,6 @@ func (api *AuthApi) Auth(factor string, options ...func(*url.Values)) (*AuthResu
 		apiOps = append(apiOps, duoapi.UseTimeout)
 	}
 
-	fmt.Println("AAAAAA")
 	_, body, err := api.SignedCall("POST", "/auth/v2/auth", params, apiOps...)
 	if err != nil {
 		return nil, err
